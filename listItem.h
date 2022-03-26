@@ -1,17 +1,11 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef LIST_ITEM_H
+#define LIST_ITEM_H
+typedef struct listItem {
+  int value;
+  struct listItem *nextItem;
+} listItem;
 
-#include <stdbool.h>  /* bool - true/false */
-
-bool listInit(int, int);
-void printList();
-void deleteList();
-void listBubbleSort();
-void findRandomNumber();
-void findNumberAtRandomPosition();
-void addRandomNumberToOrderedList();
-/* TODO
-void deleteRandomNumberFromOrderedList();
-*/
+listItem *itemConstructor(int);
+void deleteListItem();
 
 #endif
