@@ -8,6 +8,10 @@ void printList();
 void deleteList();
 void listBubbleSort();
 void findRandomNumber();
-void findRandomPosition();
+void findNumberAtRandomPosition();
+void addRandomNumberToOrderedList();
+/* TODO
+void deleteRandomNumberFromOrderedList();
+*/
 
 #endif

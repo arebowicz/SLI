@@ -6,7 +6,12 @@ int main(int argc, char *argv[]) {
     listBubbleSort();
     printList();
     findRandomNumber();
-    findRandomPosition();
+    findNumberAtRandomPosition();
+    addRandomNumberToOrderedList();
+    /* TODO
+    deleteRandomNumberFromOrderedList();
+    */
+    printList();
     deleteList();
   }
   return 0;
