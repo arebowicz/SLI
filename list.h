@@ -3,7 +3,7 @@
 
 #include <stdbool.h>  /* bool - true/false */
 
-bool listInit();
+bool listInit(int, int);
 void printList();
 void deleteList();
 void listBubbleSort();

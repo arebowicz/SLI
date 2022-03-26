@@ -1,14 +1,10 @@
 #include <stdlib.h>   /* malloc, srand, rand */
-#include <time.h>     /* time */
+#include <time.h>     /* time() function for random generator */
 #include <stdio.h>    /* printf */
 #include "list.h"
 
-#define LIST_SIZE 20    /* used only twice (!): in listInit() and findByPosition() */
-#define MAX_NUMBER 100  /* list item value is from 0 to MAX_NUMBER-1 */
-
-/* LIST_SIZE extension: */
-int ADDED = 0;        /* LIST_SIZE is changing when addRandomNumberToOrderedList() */
-int DELETED = 0;      /* as above: because of function deleteRandomNumberFromOrderedList() */
+static int LIST_SIZE = 0;   /* used only twice (!): in listInit() and findByPosition() */
+static int MAX_NUMBER = 0;  /* list item value is from 1 to MAX_NUMBER */
 
 typedef struct listItem {
   int number;
@@ -35,7 +31,7 @@ static listItem *itemConstructor() {
   listItem *tmp = mallocListItem();
   if(tmp == NULL)
     return NULL;
-  setNumber(tmp, rand()%MAX_NUMBER);
+  setNumber(tmp, rand()%MAX_NUMBER+1);
   setNextItem(tmp, NULL);
   return tmp;
 }
@@ -50,7 +46,19 @@ static bool addNextItem(listItem *item) {
   return true;
 }
 
-bool listInit() {
+static void incrementListSize() {
+  ++LIST_SIZE;
+  return;
+}
+
+static void decrementListSize() {
+  --LIST_SIZE;
+  return;
+}
+
+bool listInit(int listSize, int maxNumber) {
+  LIST_SIZE = listSize;
+  MAX_NUMBER = maxNumber;
   srand(time(NULL));
   firstItem = itemConstructor();
   if(firstItem == NULL)
@@ -144,11 +152,11 @@ static void findByNumber(int number) {
 }
 
 void findRandomNumber() {
-  findByNumber(rand()%MAX_NUMBER);
+  findByNumber(rand()%MAX_NUMBER+1);
 }
 
 static void findByPosition(int position) {
-  if(position < 0 && position > LIST_SIZE+ADDED-DELETED) {
+  if(position < 0 && position > LIST_SIZE) {
     printf("wrong position...\n");
     return;
   }
@@ -160,11 +168,11 @@ static void findByPosition(int position) {
 }
 
 void findNumberAtRandomPosition() {
-  findByPosition(rand()%LIST_SIZE+ADDED-DELETED+1);
+  findByPosition(rand()%LIST_SIZE+1);
 }
 
 /*
-  maybe it is too complicated?
+  maybe that implementation is too complicated?
   I'll try again later...
 */
 static void addItemToOrderedList(listItem *item) {
@@ -175,15 +183,15 @@ static void addItemToOrderedList(listItem *item) {
   }
   listItem *tmp = firstItem;    /* tmp is one position too far */
   listItem *tmp2 = firstItem;   /* so tmp2 precedes tmp */
-  int i = 0;                    /* i is for tmp2 position */
+  int i = 1;                    /* i is for tmp2 position */
   while(item->number > tmp->number) {
     if(tmp->nextItem == NULL)
       break;
     tmp = tmp->nextItem;
-    if(++i>1)
+    if(++i>2)
       tmp2 = tmp2->nextItem;
   }
-  if(i == 0) {
+  if(i == 1) {
     if(item->number <= firstItem->number) {
       item->nextItem = firstItem;
       firstItem = item;
@@ -200,8 +208,8 @@ static void addItemToOrderedList(listItem *item) {
   item->nextItem = tmp2->nextItem;
   tmp2->nextItem = item;
   }
-  ++ADDED;
-  printf("number %d added to list at position %d\n", item->number, i+1);
+  incrementListSize();
+  printf("number %d added to list at position %d\n", item->number, i);
 }
 
 void addRandomNumberToOrderedList() {
