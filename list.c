@@ -55,6 +55,7 @@ bool listInit() {
   while(++i<LIST_SIZE)
     if(addNextItem(itemConstructor()) == false)
       return false;
+  printf("list successfully initialised\n");
   return true;
 }
 
@@ -116,4 +117,28 @@ void listBubbleSort() {
     }
     item1 = item1->nextItem;
   }
+  printf("list successfully sorted\n");
+}
+
+static void findNumber(int number) {
+  if(firstItem == NULL) {
+    printf("there is no list...\n");
+    return;
+  }
+  listItem *tmp = firstItem;
+  int i = 0;
+  while(tmp != NULL) {
+    ++i;
+    if(tmp->number == number) {
+      printf("number %d found at position %d\n", number, i);
+      return;
+    }
+    tmp = tmp->nextItem;
+  }
+  printf("number %d not found in list\n", number);
+  return;
+}
+
+void findRandomNumber() {
+  findNumber(rand()%MAX_NUMBER);
 }

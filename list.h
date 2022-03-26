@@ -7,5 +7,6 @@ bool listInit();
 void printList();
 void deleteList();
 void listBubbleSort();
+void findRandomNumber();
 
 #endif
