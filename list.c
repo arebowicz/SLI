@@ -120,7 +120,7 @@ void listBubbleSort() {
   printf("list successfully sorted\n");
 }
 
-static void findNumber(int number) {
+static void findByNumber(int number) {
   if(firstItem == NULL) {
     printf("there is no list...\n");
     return;
@@ -140,5 +140,21 @@ static void findNumber(int number) {
 }
 
 void findRandomNumber() {
-  findNumber(rand()%MAX_NUMBER);
+  findByNumber(rand()%MAX_NUMBER);
+}
+
+static void findByPosition(int position) {
+  if(position < 0 && position > LIST_SIZE) {
+    printf("wrong position...\n");
+    return;
+  }
+  listItem *tmp = firstItem;
+  int i = 0;
+  while(++i<position)
+    tmp = tmp->nextItem;
+  printf("at position %d there is number %d\n", i, tmp->number);
+}
+
+void findRandomPosition() {
+  findByPosition(rand()%LIST_SIZE+1);
 }

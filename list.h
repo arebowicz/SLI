@@ -8,5 +8,6 @@ void printList();
 void deleteList();
 void listBubbleSort();
 void findRandomNumber();
+void findRandomPosition();
 
 #endif
