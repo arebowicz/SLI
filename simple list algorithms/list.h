@@ -13,5 +13,7 @@ void strToList(char *, list *);
 void printList(list *);
 void deleteList(list *);
 void reverseList(list *);
+void printMinimumAndItsPosition(list *);
+void removeDuplicates(list *);
 
 #endif

@@ -80,8 +80,10 @@ void deleteList(list *l) {
 void reverseList(list *l) {
   if(l == NULL || l->firstItem == NULL)
     return;
-  if(l->firstItem->nextItem == NULL)
+  if(l->firstItem->nextItem == NULL) {
+    printf("list reversed!\n");
     return;
+  }
   listItem *tmp = l->firstItem;   /* this one (tmp) will be "new last" */
   listItem *tmp2;
   while(tmp->nextItem != NULL) {
@@ -90,5 +92,60 @@ void reverseList(list *l) {
     tmp2->nextItem = l->firstItem;
     l->firstItem = tmp2;
   }
+  printf("list reversed!\n");
+  return;
+}
+
+void printMinimumAndItsPosition(list *l) {
+  if(l == NULL || l->firstItem == NULL)
+    return;
+  if(l->firstItem->nextItem == NULL) {
+    printf("found minimum %d at position %d\n", l->firstItem->value, 1);
+    return;
+  }
+  int i, j, min;
+  min = l->firstItem->value;
+  i = j = 1;
+  listItem *tmp = l->firstItem;
+  while(tmp->nextItem != NULL) {
+    if(tmp->value < min) {
+      min = tmp->value;
+      j = i;
+    }
+    tmp = tmp->nextItem;
+    ++i;
+  }
+  printf("found minimum %d at position %d\n", min, j);
+  return;
+}
+
+/*
+  it looks soo complicate...
+  maybe I'll fix it later
+  (but it works well!)
+*/
+void removeDuplicates(list *l) {
+  if(l == NULL || l->firstItem == NULL)
+    return;
+  listItem *tmp = l->firstItem;
+  listItem *tmp2, *tmp3;
+  tmp2 = tmp3 = NULL;
+  while(tmp->nextItem != NULL) {
+    tmp3 = tmp;
+    tmp2 = tmp->nextItem;
+    do {
+      if(tmp->value == tmp2->value) {
+        tmp3->nextItem = tmp2->nextItem;
+        deleteItem(tmp2);
+        tmp2 = tmp3;
+      }
+      tmp3 = tmp2; /* reduntant if above condition (tmp->value == tmp2->value) true, but necessary */
+      tmp2 = tmp2->nextItem;
+    } while (tmp2 != NULL);
+    tmp = tmp->nextItem;
+    if(tmp == NULL)
+      break;
+  }
+  printf("duplicates removed!\n");
   return;
 }
