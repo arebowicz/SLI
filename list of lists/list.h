@@ -14,5 +14,8 @@ list *listConstructor(int, int);
 void listInit(list *);
 void printList(list *);
 void deleteList(list *);
+void listBubbleSort(list *);
+void addRandomNumberToOrderedList(list *);
+int sumValues(list *);
 
 #endif

@@ -12,6 +12,8 @@ typedef struct listOfLists {
 void newList(int, int);
 void deleteAllCreatedLists();
 void printAllLists();
-
+void sortAllLists();
+void addRandomNumberToEachOrderedList();
+void sumAllValues();
 
 #endif

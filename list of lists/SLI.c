@@ -3,8 +3,6 @@
 int stoi(char *);
 void listAction(int, int, int);
 
-/* return -1 if some error ocurred */
-/* return  0 if everything works   */
 /* arg vector is clearly described */
 /* by variable names               */
 int main(int argc, char *argv[]) {
@@ -15,6 +13,7 @@ int main(int argc, char *argv[]) {
     if(numberOfLists != -1 && singleListSize != -1 && maxValue != -1)
       listAction(numberOfLists, singleListSize, maxValue);
   }
+  return 0;
 }
 
 int stoi(char *s) {
@@ -33,11 +32,13 @@ void listAction(int numberOfLists, int singleListSize, int maxValue) {
   if(numberOfLists == 0 || singleListSize == 0 || maxValue == 0)
     return;
   srand(time(NULL));
-  int i = 0;
-  while(++i <= numberOfLists) {
+  while(--numberOfLists >= 0)
     newList(singleListSize, maxValue);
-    printf(" -- no. %d\n", i);
-  }
   printAllLists();
+  sortAllLists();
+  printAllLists();
+  addRandomNumberToEachOrderedList();
+  printAllLists();
+  sumAllValues();
   deleteAllCreatedLists();
 }

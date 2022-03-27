@@ -9,4 +9,5 @@ listItem *itemConstructor(int value) {
 
 void deleteItem(listItem *item) {
   free(item);
+  return;
 }

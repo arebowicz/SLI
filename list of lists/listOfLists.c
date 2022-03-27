@@ -11,16 +11,21 @@ static listOfLists *listsConstructor() {
   return tmp;
 }
 
-static void addToLists(list *l) {
+/* returns added list number */
+static int addToLists(list *l) {
   if(lists->list == NULL) {
     lists->list = l;
-    return;
+    return 1;
   }
+  int i = 1;
   listOfLists *tmp = lists;
-  while(tmp->nextList != NULL)
+  while(tmp->nextList != NULL) {
     tmp = tmp->nextList;
+    ++i;
+  }
   tmp->nextList = listsConstructor();
   tmp->nextList->list = l;
+  return ++i;
 }
 
 void newList(int listSize, int maxValue) {
@@ -28,7 +33,8 @@ void newList(int listSize, int maxValue) {
   listInit(l);
   if(lists == NULL)
     lists = listsConstructor();
-  addToLists(l);
+  printf("list no. %d succesfully created\n", addToLists(l));
+  return;
 }
 
 static void deleteListOfListsItem(listOfLists *l) {
@@ -63,4 +69,42 @@ void printAllLists() {
   }
   printf("list no. %d: ", ++i);
   printList(tmp->list);
+  return;
+}
+
+void sortAllLists() {
+  listOfLists *tmp = lists;
+  int i = 0;
+  while(tmp->nextList != NULL) {
+    printf("list no. %d ", ++i);
+    listBubbleSort(tmp->list);
+    tmp = tmp->nextList;
+  }
+  printf("list no. %d ", ++i);
+  listBubbleSort(tmp->list);
+  return;
+}
+
+void addRandomNumberToEachOrderedList() {
+  listOfLists *tmp = lists;
+  int i = 0;
+  while(tmp->nextList != NULL) {
+    printf("list no. %d: ", ++i);
+    addRandomNumberToOrderedList(tmp->list);
+    tmp = tmp->nextList;
+  }
+  printf("list no. %d: ", ++i);
+  addRandomNumberToOrderedList(tmp->list);
+  return;
+}
+
+void sumAllValues() {
+  listOfLists *tmp = lists;
+  int i = 0;
+  while(tmp->nextList != NULL) {
+    printf("list no. %d: sum of all values = %d\n", ++i, sumValues(tmp->list));
+    tmp = tmp->nextList;
+  }
+  printf("list no. %d: sum of all values = %d\n", ++i, sumValues(tmp->list));
+  return;
 }
