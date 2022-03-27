@@ -1,6 +1,7 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <stdio.h>    /* printf */
 #include "listItem.h"
 
 typedef struct list {
@@ -9,19 +10,9 @@ typedef struct list {
   int maxValue;
 } list;
 
-/* incomplete! */
-void listInit(int, int);
+list *listConstructor(int, int);
+void listInit(list *);
 void printList(list *);
 void deleteList(list *);
-void listBubbleSort(list *);
-void findRandomNumber();
-void findNumberAtRandomPosition();
-void addRandomNumberToOrderedList();
-/* TODO
-void deleteRandomNumberFromOrderedList();
-*/
-/*
-  etc, etc...
-*/
 
 #endif

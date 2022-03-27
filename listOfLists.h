@@ -1,6 +1,7 @@
 #ifndef LIST_OF_LISTS_H
 #define LIST_OF_LISTS_H
 
+#include <time.h>     /* time() function for random generator */
 #include "list.h"
 
 typedef struct listOfLists {
@@ -8,10 +9,9 @@ typedef struct listOfLists {
   struct listOfLists *nextList;
 } listOfLists;
 
-/* incomplete! */
-list *newList();
+void newList(int, int);
 void deleteAllCreatedLists();
-void printAllLists(list *);
+void printAllLists();
 
 
 #endif

@@ -1,19 +1,20 @@
-#include "list.h"
+#include "listOfLists.h"
 
 int stoi(char *);
-bool listAction(int, int);
+void listAction(int, int, int);
 
 /* return -1 if some error ocurred */
-/* return  0 if everything's fine  */
+/* return  0 if everything works   */
+/* arg vector is clearly described */
+/* by variable names               */
 int main(int argc, char *argv[]) {
-  if(argc == 3) {
-    int listSize = stoi(argv[1]);
-    int maxNumber = stoi(argv[2]);
-    if(listSize == -1 || maxNumber == -1)
-      return -1;
-    return listAction(listSize, maxNumber) ? 0 : -1;
+  if(argc == 4) {
+    int numberOfLists = stoi(argv[1]);    /* first argv  */
+    int singleListSize = stoi(argv[2]);   /* second argv */
+    int maxValue = stoi(argv[3]);         /* third argv  */
+    if(numberOfLists != -1 && singleListSize != -1 && maxValue != -1)
+      listAction(numberOfLists, singleListSize, maxValue);
   }
-  return -1;
 }
 
 int stoi(char *s) {
@@ -28,20 +29,15 @@ int stoi(char *s) {
   return result;
 }
 
-bool listAction(int listSize, int maxNumber) {
-  if(listInit(listSize, maxNumber) == true) {
-    printList();
-    listBubbleSort();
-    printList();
-    findRandomNumber();
-    findNumberAtRandomPosition();
-    addRandomNumberToOrderedList();
-    /* TODO
-    deleteRandomNumberFromOrderedList();
-    */
-    printList();
-    deleteList();
-    return true;
+void listAction(int numberOfLists, int singleListSize, int maxValue) {
+  if(numberOfLists == 0 || singleListSize == 0 || maxValue == 0)
+    return;
+  srand(time(NULL));
+  int i = 0;
+  while(++i <= numberOfLists) {
+    newList(singleListSize, maxValue);
+    printf(" -- no. %d\n", i);
   }
-  return false;
+  printAllLists();
+  deleteAllCreatedLists();
 }
